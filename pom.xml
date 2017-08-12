@@ -7,27 +7,72 @@
     <groupId>com.jameslockley.automation</groupId>
     <artifactId>william_hill_framework</artifactId>
     <version>1.0-SNAPSHOT</version>
-<dependencies>
+    <dependencies>
 
-    <dependency>
-        <groupId>info.cukes</groupId>
-        <artifactId>cucumber-junit</artifactId>
-        <version>1.2.5</version>
-        <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.5</version>
+            <scope>test</scope>
+        </dependency>
 
-    <dependency>
-        <groupId>info.cukes</groupId>
-        <artifactId>cucumber-picocontainer</artifactId>
-        <version>1.2.5</version>
-    </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>1.2.5</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>3.0.1</version>
-    </dependency>
-
-</dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <!--<systemPropertyVariables>-->
+                        <!--<deviceType>mobile</deviceType>-->
+                    <!--</systemPropertyVariables>-->
+                    <includes>
+                        <include>**/*RunCucumberTests.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>william_hill_framework</projectName>
+                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
+                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

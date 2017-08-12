@@ -1,16 +1,12 @@
 package config;
 
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,8 +23,8 @@ public class DriverFactory {
     public WebDriver getDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\James Lockley\\IdeaProjects\\william_hill_framework\\src\\test\\resources\\chromedriver.exe");
         WebDriver webDriver;
-        if (System.getProperty("deviceType").equalsIgnoreCase("mobile")) {
-            Map<String, String> mobileEmulation = new HashMap<String, String>();
+        if (mobile()) {
+            Map<String, String> mobileEmulation = new HashMap<>();
             mobileEmulation.put("deviceName", "Nexus 5");
 
             Map<String, Object> chromeOptions = new HashMap<>();
@@ -46,5 +42,13 @@ public class DriverFactory {
             webDriver.manage().timeouts().pageLoadTimeout(Long.parseLong(properties.getProperty("driver.page.load.timeout")), TimeUnit.SECONDS);
         }
         return webDriver;
+    }
+
+    private boolean mobile(){
+        try{
+            return System.getProperty("deviceType").equalsIgnoreCase("mobile");
+        }catch (NullPointerException ignored){
+            return false;
+        }
     }
 }

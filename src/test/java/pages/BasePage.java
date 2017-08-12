@@ -25,7 +25,7 @@ public abstract class BasePage {
 
     public JavascriptExecutor jstExecutor;
 
-    public boolean mobile = System.getProperty("deviceType").equalsIgnoreCase("mobile");
+    public boolean mobile = mobile();
 
     private static final By WH_OVERLAY = By.cssSelector("div#wh-global-overlay");
 
@@ -131,5 +131,13 @@ public abstract class BasePage {
 
     public String replaceSpacesWithDashes(String stringWithSpaces) {
         return stringWithSpaces.replaceAll(" ", "-");
+    }
+
+    private boolean mobile(){
+        try{
+            return System.getProperty("deviceType").equalsIgnoreCase("mobile");
+        }catch (NullPointerException ignored){
+            return false;
+        }
     }
 }
