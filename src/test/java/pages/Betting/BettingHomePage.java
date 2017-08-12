@@ -11,6 +11,7 @@ public class BettingHomePage extends BettingBasePage {
     }
 
     public void goTo() {
+        webDriver.manage().deleteAllCookies();
         webDriver.navigate().to(URL);
     }
 }
