@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
-    public static DesiredCapabilities caps = new DesiredCapabilities();
     private PropertiesReader properties;
 
     public DriverFactory() {

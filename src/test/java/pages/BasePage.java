@@ -53,6 +53,15 @@ public abstract class BasePage {
         actions.moveToElement(webDriver.findElement(locator)).build().perform();
     }
 
+    public boolean elementPresent(By locator){
+        waitForPageLoadActions();
+        try {
+            return webDriver.findElement(locator).isDisplayed();
+        } catch (ElementNotVisibleException ignore){
+            return false;
+        }
+    }
+
     public boolean isEnabled(By locator) {
         return fluentWait.until(webDriver -> webDriver != null ? webDriver.findElement(locator) : null).isEnabled();
     }

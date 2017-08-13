@@ -18,6 +18,8 @@ public abstract class BettingBasePage extends BasePage {
         super(webDriver);
     }
 
+    static final By LINK_CLEAR_SLIP = By.cssSelector("div#betslipwrapper a.clear");
+
     static final By LINK_POPULAR_FOOTBALL = By.cssSelector("ul#desktop-sidebar-quick-links li#nav-football > a");
     static final By INPUT_SINGLES_STAKE = By.cssSelector("div#bets-container-singles input.betslip-selection__stake-input");
     static final By LABEL_SINGLES_TITLE = By.cssSelector("div#bets-container-singles span.betslip-selection__name label");
@@ -25,7 +27,22 @@ public abstract class BettingBasePage extends BasePage {
     static final By TOTAL_RETURN_PRICE = By.cssSelector("span#total-to-return-price");
 
     static final By LINK_POPULAR_FOOTBALL_MOBILE = By.cssSelector("div#nav-football");
-    static final By LINK_BETSLIP_MOBILE = By.cssSelector("div#betslip-btn-toolbar > a");
+    static final By LINK_BETSLIP_MOBILE = By.cssSelector("div#betslip-btn-toolbar");
+    static final By LABEL_BETSLIP_COUNT_MOBILE = By.cssSelector("span#mobile-betslip-count");
+    static final By LINK_CLOSE_BETSLIP = By.cssSelector("a[data-ng-click*='betslipToolbarClose']");
+
+    public void clearBetSlip() {
+        if (mobile) {
+            if (elementPresent(LABEL_BETSLIP_COUNT_MOBILE)){
+                click(LINK_BETSLIP_MOBILE);
+                click(LINK_CLEAR_SLIP);
+                click(LINK_CLOSE_BETSLIP);
+            }
+        } else {
+            if (elementPresent(LINK_CLEAR_SLIP))
+                click(LINK_CLEAR_SLIP);
+        }
+    }
 
     public void goToFootball() {
         waitforPage();
